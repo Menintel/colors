@@ -1,0 +1,33 @@
+{
+  "name": "@colors/supabase",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rimraf dist",
+    "lint": "biome lint ./src",
+    "format": "biome format --write ./src",
+    "check": "biome check ./src && tsc --noEmit",
+    "generate-types": "supabase gen types typescript --project-id YOUR_PROJECT_ID > src/database.types.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.47.10",
+    "@colors/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "rimraf": "^6.0.1",
+    "supabase": "^1.226.4",
+    "typescript": "^5.7.2"
+  }
+}

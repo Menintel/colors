@@ -1,0 +1,307 @@
+/* CSS Design System & Base Styles */
+
+:root {
+	/* Color Palette */
+	--color-primary: #6366f1;
+	--color-primary-light: #818cf8;
+	--color-primary-dark: #4f46e5;
+
+	--color-secondary: #ec4899;
+	--color-secondary-light: #f472b6;
+	--color-secondary-dark: #db2777;
+
+	--color-success: #10b981;
+	--color-warning: #f59e0b;
+	--color-error: #ef4444;
+
+	/* Grays */
+	--gray-50: #f9fafb;
+	--gray-100: #f3f4f6;
+	--gray-200: #e5e7eb;
+	--gray-300: #d1d5db;
+	--gray-400: #9ca3af;
+	--gray-500: #6b7280;
+	--gray-600: #4b5563;
+	--gray-700: #374151;
+	--gray-800: #1f2937;
+	--gray-900: #111827;
+	--gray-950: #030712;
+
+	/* Background & Surface */
+	--bg-primary: var(--gray-950);
+	--bg-secondary: var(--gray-900);
+	--bg-surface: var(--gray-800);
+	--bg-elevated: var(--gray-700);
+
+	/* Text */
+	--text-primary: var(--gray-50);
+	--text-secondary: var(--gray-400);
+	--text-muted: var(--gray-500);
+
+	/* Border */
+	--border-color: var(--gray-700);
+	--border-color-light: var(--gray-600);
+
+	/* Spacing */
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-5: 1.25rem;
+	--space-6: 1.5rem;
+	--space-8: 2rem;
+	--space-10: 2.5rem;
+	--space-12: 3rem;
+	--space-16: 4rem;
+
+	/* Border Radius */
+	--radius-sm: 0.25rem;
+	--radius-md: 0.5rem;
+	--radius-lg: 0.75rem;
+	--radius-xl: 1rem;
+	--radius-full: 9999px;
+
+	/* Shadows */
+	--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+	--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+	--shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+	/* Transitions */
+	--transition-fast: 150ms ease;
+	--transition-normal: 250ms ease;
+	--transition-slow: 350ms ease;
+
+	/* Typography */
+	--font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+	--font-mono: "Fira Code", "JetBrains Mono", monospace;
+
+	/* Font Sizes */
+	--text-xs: 0.75rem;
+	--text-sm: 0.875rem;
+	--text-base: 1rem;
+	--text-lg: 1.125rem;
+	--text-xl: 1.25rem;
+	--text-2xl: 1.5rem;
+	--text-3xl: 1.875rem;
+	--text-4xl: 2.25rem;
+
+	/* Line Heights */
+	--leading-tight: 1.25;
+	--leading-normal: 1.5;
+	--leading-relaxed: 1.625;
+}
+
+/* Light theme override */
+@media (prefers-color-scheme: light) {
+	:root {
+		--bg-primary: var(--gray-50);
+		--bg-secondary: var(--gray-100);
+		--bg-surface: white;
+		--bg-elevated: var(--gray-50);
+		--text-primary: var(--gray-900);
+		--text-secondary: var(--gray-600);
+		--text-muted: var(--gray-500);
+		--border-color: var(--gray-200);
+		--border-color-light: var(--gray-300);
+	}
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 16px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+body {
+	font-family: var(--font-sans);
+	font-size: var(--text-base);
+	line-height: var(--leading-normal);
+	color: var(--text-primary);
+	background-color: var(--bg-primary);
+	min-height: 100vh;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: 600;
+	line-height: var(--leading-tight);
+	color: var(--text-primary);
+}
+
+h1 {
+	font-size: var(--text-4xl);
+}
+h2 {
+	font-size: var(--text-3xl);
+}
+h3 {
+	font-size: var(--text-2xl);
+}
+h4 {
+	font-size: var(--text-xl);
+}
+h5 {
+	font-size: var(--text-lg);
+}
+h6 {
+	font-size: var(--text-base);
+}
+
+p {
+	color: var(--text-secondary);
+}
+
+code {
+	font-family: var(--font-mono);
+	font-size: 0.9em;
+	background-color: var(--bg-surface);
+	padding: 0.2em 0.4em;
+	border-radius: var(--radius-sm);
+}
+
+a {
+	color: var(--color-primary);
+	text-decoration: none;
+	transition: color var(--transition-fast);
+}
+
+a:hover {
+	color: var(--color-primary-light);
+}
+
+/* Buttons */
+button {
+	font-family: inherit;
+	font-size: var(--text-sm);
+	font-weight: 500;
+	padding: var(--space-2) var(--space-4);
+	border-radius: var(--radius-md);
+	border: 1px solid transparent;
+	cursor: pointer;
+	transition: all var(--transition-fast);
+	background-color: var(--color-primary);
+	color: white;
+}
+
+button:hover {
+	background-color: var(--color-primary-light);
+	transform: translateY(-1px);
+}
+
+button:active {
+	transform: translateY(0);
+}
+
+button:focus-visible {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 2px;
+}
+
+/* App Layout */
+.app {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.app-header {
+	text-align: center;
+	padding: var(--space-12) var(--space-4);
+	background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+	border-bottom: 1px solid var(--border-color);
+}
+
+.app-header .logo {
+	color: var(--color-primary);
+	margin-bottom: var(--space-4);
+}
+
+.app-header h1 {
+	margin-bottom: var(--space-2);
+	background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+.app-main {
+	flex: 1;
+	padding: var(--space-8);
+	max-width: 1200px;
+	margin: 0 auto;
+	width: 100%;
+}
+
+.app-footer {
+	text-align: center;
+	padding: var(--space-4);
+	border-top: 1px solid var(--border-color);
+	color: var(--text-muted);
+	font-size: var(--text-sm);
+}
+
+/* Card */
+.card {
+	background-color: var(--bg-surface);
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-lg);
+	padding: var(--space-6);
+	text-align: center;
+	margin-bottom: var(--space-8);
+}
+
+.card button {
+	margin-bottom: var(--space-4);
+}
+
+/* Features Grid */
+.features {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: var(--space-6);
+}
+
+.feature {
+	background-color: var(--bg-surface);
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-lg);
+	padding: var(--space-6);
+	text-align: center;
+	transition: all var(--transition-normal);
+}
+
+.feature:hover {
+	border-color: var(--color-primary);
+	transform: translateY(-4px);
+	box-shadow: var(--shadow-lg);
+}
+
+.feature-icon {
+	font-size: 2.5rem;
+	display: block;
+	margin-bottom: var(--space-4);
+}
+
+.feature h3 {
+	font-size: var(--text-lg);
+	margin-bottom: var(--space-2);
+}
+
+.feature p {
+	font-size: var(--text-sm);
+}
