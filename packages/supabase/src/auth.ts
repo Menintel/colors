@@ -93,3 +93,7 @@ export function onAuthStateChange(callback: (event: string, session: Session | n
 	} = supabase.auth.onAuthStateChange(callback);
 	return { unsubscribe: () => subscription.unsubscribe() };
 }
+
+// Re-export types for consumers
+export type { User, Session, AuthError } from '@supabase/supabase-js';
+

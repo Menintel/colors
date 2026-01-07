@@ -18,6 +18,9 @@ export {
 	resetPassword,
 	onAuthStateChange,
 	type AuthResult,
+	type User,
+	type Session,
+	type AuthError,
 } from './auth.js';
 
 // Database operations

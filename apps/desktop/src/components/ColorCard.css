@@ -1,0 +1,79 @@
+/* Color Card Styles */
+
+.color-card {
+	position: relative;
+	aspect-ratio: 1;
+	border-radius: var(--radius-lg);
+	cursor: pointer;
+	transition: all var(--transition-normal);
+	overflow: hidden;
+	box-shadow: var(--shadow-md);
+}
+
+.color-card:hover {
+	transform: scale(1.05);
+	box-shadow: var(--shadow-xl);
+}
+
+.color-card:hover .color-actions {
+	opacity: 1;
+}
+
+.color-actions {
+	position: absolute;
+	top: var(--space-2);
+	right: var(--space-2);
+	display: flex;
+	gap: var(--space-1);
+	opacity: 0;
+	transition: opacity var(--transition-fast);
+}
+
+.color-action-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	padding: 0;
+	background: rgba(0, 0, 0, 0.2);
+	border: none;
+	border-radius: var(--radius-md);
+	cursor: pointer;
+	transition: all var(--transition-fast);
+	backdrop-filter: blur(4px);
+}
+
+.color-action-btn:hover {
+	background: rgba(0, 0, 0, 0.4);
+	transform: none;
+}
+
+.color-action-btn.delete:hover {
+	background: rgba(239, 68, 68, 0.8);
+}
+
+.color-info {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: var(--space-3);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-1);
+}
+
+.color-name {
+	font-size: var(--text-sm);
+	font-weight: 500;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.color-hex {
+	font-family: var(--font-mono);
+	font-size: var(--text-xs);
+	opacity: 0.8;
+}
