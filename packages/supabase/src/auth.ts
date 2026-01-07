@@ -1,7 +1,7 @@
 // Authentication helpers
 
+import type { AuthError, Session, User } from '@supabase/supabase-js';
 import { getSupabase } from './client.js';
-import type { User, Session, AuthError } from '@supabase/supabase-js';
 
 export interface AuthResult {
 	user: User | null;
@@ -12,10 +12,7 @@ export interface AuthResult {
 /**
  * Sign up with email and password
  */
-export async function signUp(
-	email: string,
-	password: string
-): Promise<AuthResult> {
+export async function signUp(email: string, password: string): Promise<AuthResult> {
 	const supabase = getSupabase();
 	const { data, error } = await supabase.auth.signUp({
 		email,
@@ -32,10 +29,7 @@ export async function signUp(
 /**
  * Sign in with email and password
  */
-export async function signIn(
-	email: string,
-	password: string
-): Promise<AuthResult> {
+export async function signIn(email: string, password: string): Promise<AuthResult> {
 	const supabase = getSupabase();
 	const { data, error } = await supabase.auth.signInWithPassword({
 		email,
@@ -83,9 +77,7 @@ export async function getSession(): Promise<Session | null> {
 /**
  * Request password reset email
  */
-export async function resetPassword(
-	email: string
-): Promise<{ error: AuthError | null }> {
+export async function resetPassword(email: string): Promise<{ error: AuthError | null }> {
 	const supabase = getSupabase();
 	const { error } = await supabase.auth.resetPasswordForEmail(email);
 	return { error };
@@ -94,9 +86,7 @@ export async function resetPassword(
 /**
  * Subscribe to auth state changes
  */
-export function onAuthStateChange(
-	callback: (event: string, session: Session | null) => void
-): { unsubscribe: () => void } {
+export function onAuthStateChange(callback: (event: string, session: Session | null) => void): { unsubscribe: () => void } {
 	const supabase = getSupabase();
 	const {
 		data: { subscription },

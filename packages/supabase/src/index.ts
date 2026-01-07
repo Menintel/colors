@@ -19,3 +19,9 @@ export {
 	onAuthStateChange,
 	type AuthResult,
 } from './auth.js';
+
+// Database operations
+export * from './database.workspaces.js';
+export * from './database.folders.js';
+export * from './database.projects.js';
+export * from './database.colors.js';

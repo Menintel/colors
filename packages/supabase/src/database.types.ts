@@ -1,5 +1,5 @@
-// Placeholder database types - will be generated from Supabase schema
-// Run `pnpm generate-types` in packages/supabase after setting up Supabase project
+// Database types matching Supabase schema
+// Generated based on migrations/000_full_setup.sql
 
 export interface Database {
 	public: {
@@ -26,6 +26,7 @@ export interface Database {
 					created_at?: string;
 					updated_at?: string;
 				};
+				Relationships: [];
 			};
 			folders: {
 				Row: {
@@ -58,6 +59,20 @@ export interface Database {
 					created_at?: string;
 					updated_at?: string;
 				};
+				Relationships: [
+					{
+						foreignKeyName: 'folders_parent_id_fkey';
+						columns: ['parent_id'];
+						referencedRelation: 'folders';
+						referencedColumns: ['id'];
+					},
+					{
+						foreignKeyName: 'folders_workspace_id_fkey';
+						columns: ['workspace_id'];
+						referencedRelation: 'workspaces';
+						referencedColumns: ['id'];
+					},
+				];
 			};
 			projects: {
 				Row: {
@@ -90,6 +105,20 @@ export interface Database {
 					created_at?: string;
 					updated_at?: string;
 				};
+				Relationships: [
+					{
+						foreignKeyName: 'projects_folder_id_fkey';
+						columns: ['folder_id'];
+						referencedRelation: 'folders';
+						referencedColumns: ['id'];
+					},
+					{
+						foreignKeyName: 'projects_workspace_id_fkey';
+						columns: ['workspace_id'];
+						referencedRelation: 'workspaces';
+						referencedColumns: ['id'];
+					},
+				];
 			};
 			colors: {
 				Row: {
@@ -114,7 +143,7 @@ export interface Database {
 					name?: string | null;
 					notes?: string | null;
 					position?: number;
-					source: string;
+					source?: string;
 					created_at?: string;
 					updated_at?: string;
 				};
@@ -131,6 +160,14 @@ export interface Database {
 					created_at?: string;
 					updated_at?: string;
 				};
+				Relationships: [
+					{
+						foreignKeyName: 'colors_project_id_fkey';
+						columns: ['project_id'];
+						referencedRelation: 'projects';
+						referencedColumns: ['id'];
+					},
+				];
 			};
 			reference_images: {
 				Row: {
@@ -157,10 +194,19 @@ export interface Database {
 					extracted_colors?: string[];
 					created_at?: string;
 				};
+				Relationships: [
+					{
+						foreignKeyName: 'reference_images_project_id_fkey';
+						columns: ['project_id'];
+						referencedRelation: 'projects';
+						referencedColumns: ['id'];
+					},
+				];
 			};
 		};
 		Views: Record<string, never>;
 		Functions: Record<string, never>;
 		Enums: Record<string, never>;
+		CompositeTypes: Record<string, never>;
 	};
 }
