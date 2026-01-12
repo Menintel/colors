@@ -14,7 +14,7 @@ export function ColorWheel({ hue, saturation, lightness, onChange }: ColorWheelP
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [isDragging, setIsDragging] = useState(false);
 
-	const size = 180;
+	const size = 160;
 	const radius = size / 2;
 
 	// Draw the color wheel

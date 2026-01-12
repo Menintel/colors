@@ -1,6 +1,7 @@
 // Main Picker Window - compact floating color picker
 
 import { useState, useCallback, useMemo } from 'react';
+import { LogOut } from 'lucide-react';
 import { hexToRgb, hexToHsl, rgbToHex, hslToHex } from '@colors/shared';
 import type { Color, Project, Folder } from '@colors/shared';
 import {
@@ -22,6 +23,7 @@ interface PickerWindowProps {
 	selectedProjectId: string | null;
 	onAddColor: (hex: string) => void;
 	onSelectProject: (projectId: string) => void;
+	onLogout: () => void;
 }
 
 export function PickerWindow({
@@ -31,6 +33,7 @@ export function PickerWindow({
 	selectedProjectId,
 	onAddColor,
 	onSelectProject,
+	onLogout,
 }: PickerWindowProps) {
 	const [activeTab, setActiveTab] = useState<PickerTab>('wheel');
 	const [currentHex, setCurrentHex] = useState('#00FA92');
@@ -110,9 +113,17 @@ export function PickerWindow({
 
 	return (
 		<div className="picker-window">
-			{/* Title Bar - native controls handled by OS */}
+			{/* Title Bar */}
 			<div className="title-bar">
 				<span className="title-bar__title">Colors</span>
+				<button
+					type="button"
+					className="title-bar__logout"
+					onClick={onLogout}
+					title="Sign out"
+				>
+					<LogOut size={14} />
+				</button>
 			</div>
 
 			{/* Tab Bar */}

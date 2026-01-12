@@ -14,7 +14,7 @@ initializeSupabase({
 });
 
 function App() {
-	const { isAuthenticated, isLoading: authLoading, initialize } = useAuthStore();
+	const { isAuthenticated, isLoading: authLoading, initialize, signOut } = useAuthStore();
 	const {
 		loadWorkspace,
 		colors,
@@ -74,6 +74,7 @@ function App() {
 			selectedProjectId={selectedProjectId}
 			onAddColor={handleAddColor}
 			onSelectProject={selectProject}
+			onLogout={signOut}
 		/>
 	);
 }

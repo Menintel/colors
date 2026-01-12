@@ -78,6 +78,27 @@ html, body, #root {
 	color: var(--text-secondary);
 }
 
+.title-bar__logout {
+	position: absolute;
+	right: var(--space-md);
+	width: 24px;
+	height: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	border: none;
+	border-radius: var(--radius-sm);
+	color: var(--text-muted);
+	cursor: pointer;
+	-webkit-app-region: no-drag;
+}
+
+.title-bar__logout:hover {
+	background: var(--bg-hover);
+	color: var(--text-primary);
+}
+
 .title-bar__controls {
 	position: absolute;
 	left: var(--space-md);
@@ -137,13 +158,22 @@ html, body, #root {
 	height: 20px;
 }
 
+/* Picker Window */
+.picker-window {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow: hidden;
+}
+
 /* Picker Area */
 .picker-area {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	padding: var(--space-lg);
+	padding: var(--space-md);
 	overflow: hidden;
+	min-height: 0;
 }
 
 /* Color Wheel */
@@ -155,8 +185,8 @@ html, body, #root {
 }
 
 .color-wheel__canvas {
-	width: 180px;
-	height: 180px;
+	width: 160px;
+	height: 160px;
 	border-radius: 50%;
 	cursor: crosshair;
 }
@@ -468,7 +498,8 @@ html, body, #root {
 .image-palette__image-container {
 	position: relative;
 	flex: 1;
-	min-height: 120px;
+	min-height: 80px;
+	max-height: 140px;
 	overflow: hidden;
 	border-radius: var(--radius-md);
 }

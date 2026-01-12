@@ -30,7 +30,7 @@ export function AuthScreen() {
 		<div className="auth-screen">
 			<div className="auth-card">
 				<div className="auth-header">
-					<Palette size={48} className="auth-logo" />
+					<Palette size={32} className="auth-logo" />
 					<h1>Colors</h1>
 					<p>A lightweight color palette application</p>
 				</div>

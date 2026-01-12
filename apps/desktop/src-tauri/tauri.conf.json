@@ -1,0 +1,49 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "Colors",
+  "version": "0.1.0",
+  "identifier": "com.colors.app",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:3000",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Colors",
+        "label": "main",
+        "width": 300,
+        "height": 420,
+        "minWidth": 300,
+        "minHeight": 420,
+        "maxWidth": 300,
+        "maxHeight": 420,
+        "resizable": false,
+        "fullscreen": false,
+        "center": true,
+        "decorations": true,
+        "alwaysOnTop": true,
+        "transparent": false,
+        "skipTaskbar": false,
+        "visible": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  },
+  "plugins": {}
+}
