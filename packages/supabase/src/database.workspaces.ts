@@ -1,8 +1,8 @@
 // Database operations for workspaces
 
 import type { Workspace } from '@colors/shared';
-import { getSupabase } from './client.js';
-import type { Database } from './database.types.js';
+import { getSupabase } from './client';
+import type { Database } from './database.types';
 
 type WorkspaceRow = Database['public']['Tables']['workspaces']['Row'];
 type WorkspaceUpdate = Database['public']['Tables']['workspaces']['Update'];

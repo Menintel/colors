@@ -1,9 +1,10 @@
-// Main App component
+// Main App - Compact Color Picker
 
-import { initializeSupabase } from '@colors/supabase';
 import { useEffect } from 'react';
-import { AuthScreen, ColorGrid, Sidebar } from './components';
-import { useAuthStore, useUIStore, useWorkspaceStore } from './stores';
+import { initializeSupabase } from '@colors/supabase';
+import { useAuthStore, useWorkspaceStore } from './stores';
+import { AuthScreen } from './components';
+import { PickerWindow } from './components/PickerWindow';
 import './styles/index.css';
 
 // Initialize Supabase
@@ -14,18 +15,20 @@ initializeSupabase({
 
 function App() {
 	const { isAuthenticated, isLoading: authLoading, initialize } = useAuthStore();
-	const { loadWorkspace, isLoading: workspaceLoading } = useWorkspaceStore();
-	const { theme, setTheme } = useUIStore();
+	const {
+		loadWorkspace,
+		colors,
+		projects,
+		folders,
+		createColor,
+		selectedProjectId,
+		selectProject,
+	} = useWorkspaceStore();
 
-	// Initialize auth on mount
+	// Initialize auth
 	useEffect(() => {
 		initialize();
 	}, [initialize]);
-
-	// Apply theme
-	useEffect(() => {
-		setTheme(theme);
-	}, [theme, setTheme]);
 
 	// Load workspace when authenticated
 	useEffect(() => {
@@ -34,36 +37,44 @@ function App() {
 		}
 	}, [isAuthenticated, loadWorkspace]);
 
-	// Loading state
+	// Auto-select first project if none selected
+	useEffect(() => {
+		if (projects.length > 0 && !selectedProjectId) {
+			selectProject(projects[0].id);
+		}
+	}, [projects, selectedProjectId, selectProject]);
+
+	// Handle adding color to current project
+	const handleAddColor = async (hex: string) => {
+		if (selectedProjectId) {
+			await createColor(hex, 'picker');
+		}
+	};
+
+	// Loading
 	if (authLoading) {
 		return (
-			<div className="loading-screen">
-				<div className="loading-spinner" />
-				<p>Loading...</p>
+			<div className="flex-center" style={{ height: '100vh' }}>
+				<span style={{ color: 'var(--text-muted)' }}>Loading...</span>
 			</div>
 		);
 	}
 
-	// Not authenticated - show auth screen
+	// Auth screen
 	if (!isAuthenticated) {
 		return <AuthScreen />;
 	}
 
-	// Authenticated - show main app
+	// Main picker
 	return (
-		<div className="app-container">
-			<Sidebar />
-			<main className="main-content">
-				{workspaceLoading ? (
-					<div className="loading-screen">
-						<div className="loading-spinner" />
-						<p>Loading workspace...</p>
-					</div>
-				) : (
-					<ColorGrid />
-				)}
-			</main>
-		</div>
+		<PickerWindow
+			colors={colors}
+			projects={projects}
+			folders={folders}
+			selectedProjectId={selectedProjectId}
+			onAddColor={handleAddColor}
+			onSelectProject={selectProject}
+		/>
 	);
 }
 

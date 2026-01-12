@@ -8,13 +8,16 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, './src'),
+			// Workspace package aliases for dev mode
+			'@colors/shared': path.resolve(__dirname, '../../packages/shared/src'),
+			'@colors/supabase': path.resolve(__dirname, '../../packages/supabase/src'),
 		},
 	},
 	// Vite options tailored for Tauri development
 	clearScreen: false,
 	server: {
-		port: 1420,
-		strictPort: true,
+		port: 3000,
+		strictPort: false,
 		watch: {
 			// Use polling for Tauri dev
 			usePolling: true,
@@ -29,5 +32,9 @@ export default defineConfig({
 		minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
 		// Produce sourcemaps for debug builds
 		sourcemap: !!process.env.TAURI_DEBUG,
+	},
+	// Optimize dependencies
+	optimizeDeps: {
+		include: ['@supabase/supabase-js', 'zustand', 'lucide-react'],
 	},
 });

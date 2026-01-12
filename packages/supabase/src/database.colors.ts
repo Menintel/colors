@@ -2,8 +2,8 @@
 
 import type { Color, CreateColorInput, HSL, RGB, UpdateColorInput } from '@colors/shared';
 import { hexToHsl, hexToRgb, normalizeHex } from '@colors/shared';
-import { getSupabase } from './client.js';
-import type { Database } from './database.types.js';
+import { getSupabase } from './client';
+import type { Database } from './database.types';
 
 type ColorRow = Database['public']['Tables']['colors']['Row'];
 type ColorInsert = Database['public']['Tables']['colors']['Insert'];

@@ -1,8 +1,8 @@
 // Database operations for folders
 
 import type { CreateFolderInput, Folder, UpdateFolderInput } from '@colors/shared';
-import { getSupabase } from './client.js';
-import type { Database } from './database.types.js';
+import { getSupabase } from './client';
+import type { Database } from './database.types';
 
 type FolderRow = Database['public']['Tables']['folders']['Row'];
 type FolderInsert = Database['public']['Tables']['folders']['Insert'];

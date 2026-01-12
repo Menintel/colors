@@ -1,8 +1,8 @@
 // Database operations for projects
 
 import type { CreateProjectInput, Project, UpdateProjectInput } from '@colors/shared';
-import { getSupabase } from './client.js';
-import type { Database } from './database.types.js';
+import { getSupabase } from './client';
+import type { Database } from './database.types';
 
 type ProjectRow = Database['public']['Tables']['projects']['Row'];
 type ProjectInsert = Database['public']['Tables']['projects']['Insert'];

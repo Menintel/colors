@@ -1,7 +1,7 @@
 // Supabase client setup
 
-import { type SupabaseClient, createClient } from '@supabase/supabase-js';
-import type { Database } from './database.types.js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import type { Database } from './database.types';
 
 let supabaseClient: SupabaseClient<Database> | null = null;
 
@@ -36,7 +36,9 @@ export function initializeSupabase(config: SupabaseConfig): SupabaseClient<Datab
  */
 export function getSupabase(): SupabaseClient<Database> {
 	if (!supabaseClient) {
-		throw new Error('Supabase client not initialized. Call initializeSupabase() first.');
+		throw new Error(
+			'Supabase client not initialized. Call initializeSupabase() first.'
+		);
 	}
 	return supabaseClient;
 }
@@ -49,4 +51,4 @@ export function isSupabaseInitialized(): boolean {
 }
 
 export type { SupabaseClient } from '@supabase/supabase-js';
-export type { Database } from './database.types.js';
+export type { Database } from './database.types';

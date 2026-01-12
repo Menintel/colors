@@ -1,5 +1,5 @@
 // Database types matching Supabase schema
-// Generated based on migrations/000_full_setup.sql
+// These types allow for flexible insert/update operations
 
 export interface Database {
 	public: {
@@ -59,20 +59,7 @@ export interface Database {
 					created_at?: string;
 					updated_at?: string;
 				};
-				Relationships: [
-					{
-						foreignKeyName: 'folders_parent_id_fkey';
-						columns: ['parent_id'];
-						referencedRelation: 'folders';
-						referencedColumns: ['id'];
-					},
-					{
-						foreignKeyName: 'folders_workspace_id_fkey';
-						columns: ['workspace_id'];
-						referencedRelation: 'workspaces';
-						referencedColumns: ['id'];
-					},
-				];
+				Relationships: [];
 			};
 			projects: {
 				Row: {
@@ -105,20 +92,7 @@ export interface Database {
 					created_at?: string;
 					updated_at?: string;
 				};
-				Relationships: [
-					{
-						foreignKeyName: 'projects_folder_id_fkey';
-						columns: ['folder_id'];
-						referencedRelation: 'folders';
-						referencedColumns: ['id'];
-					},
-					{
-						foreignKeyName: 'projects_workspace_id_fkey';
-						columns: ['workspace_id'];
-						referencedRelation: 'workspaces';
-						referencedColumns: ['id'];
-					},
-				];
+				Relationships: [];
 			};
 			colors: {
 				Row: {
@@ -160,14 +134,7 @@ export interface Database {
 					created_at?: string;
 					updated_at?: string;
 				};
-				Relationships: [
-					{
-						foreignKeyName: 'colors_project_id_fkey';
-						columns: ['project_id'];
-						referencedRelation: 'projects';
-						referencedColumns: ['id'];
-					},
-				];
+				Relationships: [];
 			};
 			reference_images: {
 				Row: {
@@ -194,14 +161,7 @@ export interface Database {
 					extracted_colors?: string[];
 					created_at?: string;
 				};
-				Relationships: [
-					{
-						foreignKeyName: 'reference_images_project_id_fkey';
-						columns: ['project_id'];
-						referencedRelation: 'projects';
-						referencedColumns: ['id'];
-					},
-				];
+				Relationships: [];
 			};
 		};
 		Views: Record<string, never>;
@@ -210,3 +170,11 @@ export interface Database {
 		CompositeTypes: Record<string, never>;
 	};
 }
+
+// Type helpers for database operations
+export type Tables<T extends keyof Database['public']['Tables']> =
+	Database['public']['Tables'][T]['Row'];
+export type InsertTables<T extends keyof Database['public']['Tables']> =
+	Database['public']['Tables'][T]['Insert'];
+export type UpdateTables<T extends keyof Database['public']['Tables']> =
+	Database['public']['Tables'][T]['Update'];

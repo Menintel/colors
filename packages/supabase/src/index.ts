@@ -7,7 +7,7 @@ export {
 	type SupabaseConfig,
 	type SupabaseClient,
 	type Database,
-} from './client.js';
+} from './client';
 
 export {
 	signUp,
@@ -21,10 +21,10 @@ export {
 	type User,
 	type Session,
 	type AuthError,
-} from './auth.js';
+} from './auth';
 
 // Database operations
-export * from './database.workspaces.js';
-export * from './database.folders.js';
-export * from './database.projects.js';
-export * from './database.colors.js';
+export * from './database.workspaces';
+export * from './database.folders';
+export * from './database.projects';
+export * from './database.colors';
