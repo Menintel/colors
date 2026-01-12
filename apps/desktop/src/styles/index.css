@@ -92,11 +92,43 @@ html, body, #root {
 	color: var(--text-muted);
 	cursor: pointer;
 	-webkit-app-region: no-drag;
+	transition: all 0.2s;
 }
 
 .title-bar__logout:hover {
 	background: var(--bg-hover);
 	color: var(--text-primary);
+}
+
+.title-bar__pin {
+	position: absolute;
+	right: calc(var(--space-md) + 28px);
+	width: 24px;
+	height: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	border: none;
+	border-radius: var(--radius-sm);
+	color: var(--text-muted);
+	cursor: pointer;
+	-webkit-app-region: no-drag;
+	transition: all 0.2s;
+}
+
+.title-bar__pin:hover {
+	background: var(--bg-hover);
+	color: var(--text-primary);
+}
+
+.title-bar__pin--active {
+	color: #a855f7;
+	background: rgba(168, 85, 247, 0.1);
+}
+
+.title-bar__pin--active:hover {
+	background: rgba(168, 85, 247, 0.2);
 }
 
 .title-bar__controls {
@@ -566,6 +598,35 @@ html, body, #root {
 }
 
 /* Utility */
+
+/* Project Creation Input */
+.project-create-form {
+	padding: 0 var(--space-sm);
+	margin-bottom: var(--space-xs);
+}
+
+.project-create-input {
+	width: 100%;
+	height: 32px;
+	padding: 0 var(--space-sm);
+	background: var(--bg-input);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-sm);
+	color: var(--text-primary);
+	font-size: 13px;
+}
+
+.project-create-input:focus {
+	outline: none;
+	border-color: var(--primary);
+}
+
+.hidden-submit {
+	position: absolute;
+	visibility: hidden;
+	height: 0;
+	width: 0;
+}
 .flex-center {
 	display: flex;
 	align-items: center;

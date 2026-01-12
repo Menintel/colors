@@ -1,7 +1,7 @@
 // Main Picker Window - compact floating color picker
 
 import { useState, useCallback, useMemo } from 'react';
-import { LogOut } from 'lucide-react';
+import { LogOut, Pin, PinOff } from 'lucide-react';
 import { hexToRgb, hexToHsl, rgbToHex, hslToHex } from '@colors/shared';
 import type { Color, Project, Folder } from '@colors/shared';
 import {
@@ -23,7 +23,11 @@ interface PickerWindowProps {
 	selectedProjectId: string | null;
 	onAddColor: (hex: string) => void;
 	onSelectProject: (projectId: string) => void;
+	onCreateProject?: (name: string) => void;
+	onSavePalette: (colors: string[]) => void;
 	onLogout: () => void;
+	isPinned: boolean;
+	onTogglePin: () => void;
 }
 
 export function PickerWindow({
@@ -33,7 +37,11 @@ export function PickerWindow({
 	selectedProjectId,
 	onAddColor,
 	onSelectProject,
+	onCreateProject,
+	onSavePalette,
 	onLogout,
+	isPinned,
+	onTogglePin,
 }: PickerWindowProps) {
 	const [activeTab, setActiveTab] = useState<PickerTab>('wheel');
 	const [currentHex, setCurrentHex] = useState('#00FA92');
@@ -72,6 +80,23 @@ export function PickerWindow({
 		setCurrentHex(hex);
 	}, []);
 
+	const openEyeDropper = async () => {
+		if (!('EyeDropper' in window)) {
+			console.error('EyeDropper API not supported');
+			return;
+		}
+
+		try {
+			// @ts-ignore - TypeScript might not know about EyeDropper yet
+			const eyeDropper = new window.EyeDropper();
+			const result = await eyeDropper.open();
+			const hex = result.sRGBHex;
+			setCurrentHex(hex);
+		} catch (e) {
+			console.log('EyeDropper canceled or failed', e);
+		}
+	};
+
 	// Render active picker tab content
 	const renderPicker = () => {
 		switch (activeTab) {
@@ -96,7 +121,7 @@ export function PickerWindow({
 					/>
 				);
 			case 'image':
-				return <ImagePalette onColorSelect={handleImageColorSelect} />;
+				return <ImagePalette onColorSelect={handleImageColorSelect} onSavePalette={onSavePalette} />;
 			case 'projects':
 				return (
 					<ProjectsView
@@ -104,6 +129,7 @@ export function PickerWindow({
 						folders={folders}
 						selectedProjectId={selectedProjectId}
 						onSelectProject={onSelectProject}
+						onCreateProject={onCreateProject}
 					/>
 				);
 			default:
@@ -116,6 +142,14 @@ export function PickerWindow({
 			{/* Title Bar */}
 			<div className="title-bar">
 				<span className="title-bar__title">Colors</span>
+				<button
+					type="button"
+					className={`title-bar__pin ${isPinned ? 'title-bar__pin--active' : ''}`}
+					onClick={onTogglePin}
+					title={isPinned ? 'Unpin from top' : 'Pin to top'}
+				>
+					{isPinned ? <Pin size={14} /> : <PinOff size={14} />}
+				</button>
 				<button
 					type="button"
 					className="title-bar__logout"
@@ -136,6 +170,7 @@ export function PickerWindow({
 			<CurrentColor
 				hex={currentHex}
 				onAddToProject={handleAddToProject}
+				onEyeDropper={openEyeDropper}
 			/>
 			<OpacitySlider
 				value={opacity}

@@ -1,10 +1,12 @@
 // Main App - Compact Color Picker
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { initializeSupabase } from '@colors/supabase';
+import { getCurrentWindow } from '@tauri-apps/api/window';
 import { useAuthStore, useWorkspaceStore } from './stores';
 import { AuthScreen } from './components';
 import { PickerWindow } from './components/PickerWindow';
+import { useGlobalShortcut } from './hooks/useGlobalShortcut';
 import './styles/index.css';
 
 // Initialize Supabase
@@ -21,9 +23,14 @@ function App() {
 		projects,
 		folders,
 		createColor,
+		createProject,
 		selectedProjectId,
 		selectProject,
 	} = useWorkspaceStore();
+	const [isPinned, setIsPinned] = useState(true);
+
+	// Register global shortcut for Ctrl+Shift+C
+	useGlobalShortcut();
 
 	// Initialize auth
 	useEffect(() => {
@@ -51,6 +58,29 @@ function App() {
 		}
 	};
 
+	const handleCreateProject = async (name: string) => {
+		await loadWorkspace(); // Ensure workspace is loaded
+		const project = await createProject(name);
+		if (project) {
+			selectProject(project.id);
+		}
+	};
+
+	const handleSavePalette = async (colors: string[]) => {
+		if (!selectedProjectId) return;
+		// Create all colors in parallel
+		await Promise.all(colors.map((hex) => createColor(hex, 'image')));
+	};
+
+	const togglePin = async () => {
+		const newState = !isPinned;
+		setIsPinned(newState);
+		await getCurrentWindow().setAlwaysOnTop(newState);
+	};
+
+
+
+
 	// Loading
 	if (authLoading) {
 		return (
@@ -74,7 +104,11 @@ function App() {
 			selectedProjectId={selectedProjectId}
 			onAddColor={handleAddColor}
 			onSelectProject={selectProject}
+			onCreateProject={handleCreateProject}
+			onSavePalette={handleSavePalette}
 			onLogout={signOut}
+			isPinned={isPinned}
+			onTogglePin={togglePin}
 		/>
 	);
 }

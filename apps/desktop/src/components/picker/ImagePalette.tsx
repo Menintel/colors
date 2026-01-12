@@ -1,10 +1,11 @@
 // ImagePalette component - load images and extract colors
 
-import { ImageIcon, Upload } from 'lucide-react';
+import { ImageIcon, Upload, Save } from 'lucide-react';
 import { useCallback, useRef, useState } from 'react';
 
 interface ImagePaletteProps {
 	onColorSelect: (hex: string) => void;
+	onSavePalette?: (colors: string[]) => void;
 }
 
 interface ExtractedColor {
@@ -12,7 +13,7 @@ interface ExtractedColor {
 	count: number;
 }
 
-export function ImagePalette({ onColorSelect }: ImagePaletteProps) {
+export function ImagePalette({ onColorSelect, onSavePalette }: ImagePaletteProps) {
 	const [image, setImage] = useState<string | null>(null);
 	const [extractedColors, setExtractedColors] = useState<ExtractedColor[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
@@ -202,18 +203,31 @@ export function ImagePalette({ onColorSelect }: ImagePaletteProps) {
 				</div>
 
 				{extractedColors.length > 0 && (
-					<div className="image-palette__colors">
-						{extractedColors.map((color) => (
+					<>
+						<div className="image-palette__colors">
+							{extractedColors.map((color) => (
+								<button
+									key={color.hex}
+									type="button"
+									className="swatch"
+									style={{ backgroundColor: color.hex }}
+									onClick={() => onColorSelect(color.hex)}
+									title={color.hex}
+								/>
+							))}
+						</div>
+						{onSavePalette && (
 							<button
-								key={color.hex}
 								type="button"
-								className="swatch"
-								style={{ backgroundColor: color.hex }}
-								onClick={() => onColorSelect(color.hex)}
-								title={color.hex}
-							/>
-						))}
-					</div>
+								className="btn btn--primary"
+								style={{ marginTop: 'var(--space-sm)', width: '100%' }}
+								onClick={() => onSavePalette(extractedColors.map((c) => c.hex))}
+							>
+								<Save size={14} style={{ marginRight: 8 }} />
+								Save Palette to Project
+							</button>
+						)}
+					</>
 				)}
 			</div>
 		</div>
